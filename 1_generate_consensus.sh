@@ -11,6 +11,7 @@ module load bzip2/1.0.8-GCCcore-10.2.0
 module load ncurses/6.2-GCCcore-10.2.0
 module load foss/2021b
 export PATH=$PATH:/tarafs/data/home/hrasoara/softwares/samtools-1.18/
+module load BWA/0.7.17-intel-2019b
 
 genomes=(
   "ERR3332434"
@@ -65,8 +66,8 @@ mkdir -p data/map
 for genome in "${genomes[@]}"; do
   echo "Preprocessing ${genome}..."
   bwa mem -t 120 data/assemblies/BSP9.fna \
-    "/tarafs/data/home/hrasoara/proj5034-AGBKU/Download_BettaFish/trimmed/${genome}_1.trimmed.fastq" \
-    "/tarafs/data/home/hrasoara/proj5034-AGBKU/Download_BettaFish/trimmed/${genome}_2.trimmed.fastq" | \
+    "/tarafs/data/home/hrasoara/proj5034-AGBKU/Download_BettaFish/trimmed/${genome}_1_pairend_trimmed.fq" \
+    "/tarafs/data/home/hrasoara/proj5034-AGBKU/Download_BettaFish/trimmed/${genome}_2_pairend_trimmed.fq" | \
     samtools view -@ 120 -b -o data/map/${genome}.bam
 done
 echo "Done mapping"
