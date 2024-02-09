@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p memory
-#SBATCH -N 1 -c 120
+#SBATCH -N 1 -c 32
 #SBATCH -t 48:00:00
 #SBATCH --mem=250G
 #SBATCH -J BWAjob_ryan
@@ -10,12 +10,15 @@ module purge
 module load bzip2/1.0.8-GCCcore-10.2.0
 module load ncurses/6.2-GCCcore-10.2.0
 module load foss/2021b
+module load Singularity/3.3.0
 source /tarafs/data/home/hrasoara/proj5057-AGBKUB/ryan/Softwares/cactus/venv/bin/activate
+export PATH=$PATH:/tarafs/data/project/proj5057-AGBKUB/24-ryan/Softwares/cactus/bin
 
 cat <<EOF > data/consensus.txt
-consensus_male ./data/downsampled/downsampled-male.fa
-consensus_female ./data/downsampled/downsample-female.fa
+consensus_male ./data/downsampled/consensus-male.fa
+consensus_female ./data/downsampled/consensus-female.fa
 EOF
 
-cactus-pangenome ./js data/consensus.txt --outputDir cactus --outName consensus --reference consensus_male
+cactus-pangenome ./js data/consensus.txt --outDir cactus --outName consensus --reference consensus_male \
+	--binariesMode singularity
 echo "Done"
