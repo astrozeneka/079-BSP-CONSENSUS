@@ -193,10 +193,8 @@ foreach (@ARGV){
 print "The value of \$genome is $genome\n";
 # Print the value of defined $genome
 print "The value of defined \$genome is ", defined $genome, "\n";
-# Print the value of -s $genome
-print "The value of -s \$genome is ", -s $genome, "\n";
 
-die "Please specify the input sequence file!\nUse -h for more help info\n" unless (defined $genome and -s $genome);
+die "Please specify the input sequence file!\nUse -h for more help info\n" unless (defined $genome);
 die "Please specify LTRharvest and/or LTR_finder screen output file!\nUse -h for more help info\n" unless (defined $inharvest or defined $infinder);
 
 #obtain initial LTR-RT candidates from LTRharvest and/or LTR_finder screen outputs
