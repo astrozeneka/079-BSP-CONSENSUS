@@ -111,7 +111,7 @@ for genome in "${genomes[@]}"; do
     > "data/validate_ltr/${sex}/${genome}.unsorted.bam"
   # Sort the bam files
   samtools sort -@ 96 "data/validate_ltr/${sex}/${genome}.unsorted.bam" \
-    -o "data/validate_ltr/${sex}/${genome}.unsorted.bam"
+    -o "data/validate_ltr/${sex}/${genome}.bam"
   exit
 done
 echo "Done"
